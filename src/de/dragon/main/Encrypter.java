@@ -1,13 +1,11 @@
 package de.dragon.main;
 
-import de.dragon.UsefulThings.console.Progressbar;
-import de.dragon.UsefulThings.encryption.EncryptedOutputStream;
-import de.dragon.UsefulThings.encryption.Hash;
+import de.dragon.main.encryption.EncryptedOutputStream;
+import de.dragon.main.encryption.Hash;
+import de.dragon.main.ui.Progressbar;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.IvParameterSpec;
-import java.beans.Encoder;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;

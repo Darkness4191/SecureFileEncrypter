@@ -1,9 +1,7 @@
 package de.dragon.main;
 
-import de.dragon.UsefulThings.console.Progressbar;
-import de.dragon.UsefulThings.encryption.DecryptedInputStream;
-import de.dragon.UsefulThings.encryption.Hash;
-import de.dragon.UsefulThings.ut;
+import de.dragon.main.encryption.DecryptedInputStream;
+import de.dragon.main.encryption.Hash;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
@@ -26,7 +24,7 @@ public class Name {
         String password = new String(System.console().readPassword());
 
         InputStreamReader reader = new InputStreamReader(new FileInputStream(f), "ISO-8859-1");
-        String meta = ut.readNextInfo(reader);
+        String meta = Main.readNextInfo(reader);
         String[] decodedMeta = new String(Base64.getDecoder().decode(meta)).split(enter);
         String version = decodedMeta[0];
         String iv = decodedMeta[1];
@@ -44,8 +42,8 @@ public class Name {
         FileInputStream stream = new FileInputStream(f);
         stream.skip(meta.length() + 1 * enter.length());
         DecryptedInputStream inputStream = new DecryptedInputStream(stream, key, decodediv);
-        String pass = ut.readNextInfo(inputStream);
-        String filename = ut.readNextInfo(inputStream);
+        String pass = Main.readNextInfo(inputStream);
+        String filename = Main.readNextInfo(inputStream);
         String passwordHash = new String(Base64.getEncoder().encode(new Hash().doHashPBKDF2(password, decodedSalt)));
 
         if(!pass.equals(passwordHash)) {

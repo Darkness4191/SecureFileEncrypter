@@ -1,11 +1,11 @@
 package de.dragon.main;
 
-import de.dragon.UsefulThings.encryption.Hash;
+import de.dragon.main.encryption.DecryptedInputStream;
+import de.dragon.main.encryption.Hash;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Base64;
 
 public class Main {
@@ -83,6 +83,42 @@ public class Main {
         } else {
             System.out.println("Please provide at least one argument!");
         }
+    }
+
+    public static String readNextInfo(InputStreamReader reader) throws IOException {
+        String buffer = "";
+        boolean bool = true;
+        while (bool) {
+            int b;
+            b = reader.read();
+            if (b == 10) {
+                return buffer;
+            } else if (b == -1) {
+                return buffer;
+            } else {
+                buffer += (char) b;
+            }
+        }
+
+        return buffer;
+    }
+
+    public static String readNextInfo(DecryptedInputStream reader) throws IOException {
+        String buffer = "";
+        boolean bool = true;
+        while (bool) {
+            int b;
+            b = reader.read();
+            if (b == 10) {
+                return buffer;
+            } else if (b == -1) {
+                return buffer;
+            } else if(b != 0){
+                buffer += (char) b;
+            }
+        }
+
+        return buffer;
     }
 
 }
